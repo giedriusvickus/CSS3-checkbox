@@ -16,6 +16,13 @@
     }
 }
 
+@mixin opacity($value){
+    $IEValue: $value*100;
+    opacity: $value;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+    filter: alpha(opacity=$IEValue);
+}
+
 /* Fix Android */
 body {
     -webkit-animation: bugfix infinite 1s;
@@ -32,7 +39,7 @@ body {
 
 /*
 <div class="checkbox-btn">
-    <input id="checkbox1" class="styled" type="checkbox">
+    <input id="checkbox1" type="checkbox">
     <label for="checkbox1">
         Default
     </label>
@@ -87,7 +94,7 @@ $ch-disabled-color: #787878;
             border-right: none;
             background: transparent;
             transform: rotate(-45deg);
-            opacity: 0;
+            @include opacity(0);
             -webkit-transition: all 0.15s ease-in-out;
             -o-transition: all 0.15s ease-in-out;
             transition: all 0.15s ease-in-out;
@@ -95,7 +102,7 @@ $ch-disabled-color: #787878;
         }
         &:hover {
             &:before {
-                opacity: 0.3;
+                @include opacity(0.3);
             }
         }
     }
@@ -106,7 +113,7 @@ $ch-disabled-color: #787878;
             border: 3px solid $ch-selected-color;
         }
         &:before {
-            opacity: 1;
+            @include opacity(1);
         }
     }
     input[type="checkbox"]:disabled + label,
