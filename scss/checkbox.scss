@@ -1,0 +1,142 @@
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box; /* stops bg color from leaking outside the border: */
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+        -webkit-box-shadow: inset $top $left $blur $color;
+        -moz-box-shadow: inset $top $left $blur $color;
+        box-shadow: inset $top $left $blur $color;
+    } @else {
+        -webkit-box-shadow: $top $left $blur $color;
+        -moz-box-shadow: $top $left $blur $color;
+        box-shadow: $top $left $blur $color;
+    }
+}
+
+/* Fix Android */
+body {
+    -webkit-animation: bugfix infinite 1s;
+}
+
+@-webkit-keyframes bugfix {
+    from {
+        padding: 0;
+    }
+    to {
+        padding: 0;
+    }
+}
+
+/*
+<div class="checkbox-btn">
+    <input id="checkbox1" class="styled" type="checkbox">
+    <label for="checkbox1">
+        Default
+    </label>
+</div>
+*/
+
+$ch-color: #424242;
+$ch-selected-color: #000000;
+$ch-disabled-color: #787878;
+
+.checkbox-btn,
+.radio-btn {
+    position: relative;
+    padding-left: 20px;
+    input[type="checkbox"],
+    input[type="radio"] {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    label {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        padding-left: 20px;
+        cursor: pointer;
+        user-select: none;
+        color: $ch-color;
+        &:after {
+            position: absolute;
+            content: "";
+            width: 18px;
+            height: 18px;
+            left: 0;
+            top: 0;
+            margin-left: -18px;
+            background-color: white;
+            border: 3px solid $ch-color;
+            @include border-radius(3px);
+            cursor: pointer;
+        }
+        &:before {
+            position: absolute;
+            content: "";
+            width: 10px;
+            height: 5px;
+            top: 6px;
+            left: 6px;
+            margin-left: -18px;
+            border: 3px solid $ch-selected-color;
+            border-top: none;
+            border-right: none;
+            background: transparent;
+            transform: rotate(-45deg);
+            opacity: 0;
+            -webkit-transition: all 0.15s ease-in-out;
+            -o-transition: all 0.15s ease-in-out;
+            transition: all 0.15s ease-in-out;
+            z-index: 1;
+        }
+        &:hover {
+            &:before {
+                opacity: 0.3;
+            }
+        }
+    }
+    input[type="checkbox"]:checked + label,
+    input[type="radio"]:checked + label {
+        color: $ch-selected-color;
+        &:after {
+            border: 3px solid $ch-selected-color;
+        }
+        &:before {
+            opacity: 1;
+        }
+    }
+    input[type="checkbox"]:disabled + label,
+    input[type="radio"]:disabled + label {
+        color: $ch-disabled-color;
+        cursor: default;
+        &:after {
+            border: 3px solid $ch-disabled-color;
+            background-color: #ffffff;
+        }
+        &:before {
+            display: none;
+        }
+    }
+}
+
+.radio-btn {
+    label {
+        &:after {
+            @include border-radius(50%);
+        }
+        &:before {
+            width: 12px;
+            height: 12px;
+            border: none;
+            top: 6px;
+            left: 6px;
+            @include border-radius(50%);
+            background-color: #000000;
+            transform: rotate(0deg);
+        }
+    }
+}
