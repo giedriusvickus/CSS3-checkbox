@@ -16,13 +16,6 @@
     }
 }
 
-@mixin opacity($value){
-    $IEValue: $value*100;
-    opacity: $value;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
-    filter: alpha(opacity=$IEValue);
-}
-
 /* Fix Android */
 body {
     -webkit-animation: bugfix infinite 1s;
@@ -57,8 +50,8 @@ $ch-disabled-color: #787878;
     input[type="checkbox"],
     input[type="radio"] {
         position: absolute;
-        top: -9999px;
-        left: -9999px;
+        opacity: 0;
+        z-index: 1;
     }
     label {
         display: inline-block;
@@ -68,7 +61,7 @@ $ch-disabled-color: #787878;
         cursor: pointer;
         user-select: none;
         color: $ch-color;
-        &:after {
+        &::after {
             position: absolute;
             content: "";
             width: 18px;
@@ -81,7 +74,7 @@ $ch-disabled-color: #787878;
             @include border-radius(3px);
             cursor: pointer;
         }
-        &:before {
+        &::before {
             position: absolute;
             content: "";
             width: 10px;
@@ -94,37 +87,37 @@ $ch-disabled-color: #787878;
             border-right: none;
             background: transparent;
             transform: rotate(-45deg);
-            @include opacity(0);
+            opacity: 0;
             -webkit-transition: all 0.15s ease-in-out;
             -o-transition: all 0.15s ease-in-out;
             transition: all 0.15s ease-in-out;
             z-index: 1;
         }
         &:hover {
-            &:before {
-                @include opacity(0.3);
+            &::before {
+                opacity: 0.3;
             }
         }
     }
     input[type="checkbox"]:checked + label,
     input[type="radio"]:checked + label {
         color: $ch-selected-color;
-        &:after {
+        &::after {
             border: 3px solid $ch-selected-color;
         }
-        &:before {
-            @include opacity(1);
+        &::before {
+            opacity: 1;
         }
     }
     input[type="checkbox"]:disabled + label,
     input[type="radio"]:disabled + label {
         color: $ch-disabled-color;
         cursor: default;
-        &:after {
+        &::after {
             border: 3px solid $ch-disabled-color;
             background-color: #ffffff;
         }
-        &:before {
+        &::before {
             display: none;
         }
     }
@@ -132,10 +125,10 @@ $ch-disabled-color: #787878;
 
 .radio-btn {
     label {
-        &:after {
+        &::after {
             @include border-radius(50%);
         }
-        &:before {
+        &::before {
             width: 12px;
             height: 12px;
             border: none;
