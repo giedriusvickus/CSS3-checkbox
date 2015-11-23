@@ -50,16 +50,17 @@ $ch-disabled-color: #787878;
     input[type="checkbox"],
     input[type="radio"] {
         position: absolute;
-        opacity: 0;
+        opacity: 0; /* IE<9 graceful degradation */
         z-index: 1;
     }
     label {
         display: inline-block;
+        line-height: 24px; /* ::after height+borders */
         vertical-align: middle;
         position: relative;
         padding-left: 20px;
         cursor: pointer;
-        user-select: none;
+        user-select: none; /* iOS =< 6 bug fix*/
         color: $ch-color;
         &::after {
             position: absolute;
