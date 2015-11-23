@@ -103,7 +103,7 @@ $ch-disabled-color: #787878;
             transition: all 0.15s ease-in-out;
             z-index: 1;
         }
-        &:hover {
+        &:active {
             &::before {
                 opacity: 0.3;
             }
