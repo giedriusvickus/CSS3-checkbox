@@ -4,6 +4,10 @@
 
 Easy to customize, styled checkbox and radio button.
 
+**DEMO**
+
+> http://codepen.io/dzentbolas/pen/OyGeaj
+
 **How to use**
 
     <div class="checkbox-btn">
