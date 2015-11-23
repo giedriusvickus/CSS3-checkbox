@@ -16,6 +16,15 @@
     }
 }
 
+// generic transform
+@mixin transform($transforms) {
+    -moz-transform: $transforms;
+    -o-transform: $transforms;
+    -ms-transform: $transforms;
+    -webkit-transform: $transforms;
+    transform: $transforms;
+}
+
 /* Fix Android */
 body {
     -webkit-animation: bugfix infinite 1s;
@@ -87,7 +96,7 @@ $ch-disabled-color: #787878;
             border-top: none;
             border-right: none;
             background: transparent;
-            transform: rotate(-45deg);
+            @include transform(rotate(-45deg));
             opacity: 0;
             -webkit-transition: all 0.15s ease-in-out;
             -o-transition: all 0.15s ease-in-out;
@@ -137,7 +146,7 @@ $ch-disabled-color: #787878;
             left: 6px;
             @include border-radius(50%);
             background-color: #000000;
-            transform: rotate(0deg);
+            @include transform(rotate(0deg));
         }
     }
 }
