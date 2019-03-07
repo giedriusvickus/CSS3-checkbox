@@ -1,30 +1,3 @@
-@mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    border-radius: $radius;
-    background-clip: padding-box; /* stops bg color from leaking outside the border: */
-}
-
-@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
-    @if $inset {
-        -webkit-box-shadow: inset $top $left $blur $color;
-        -moz-box-shadow: inset $top $left $blur $color;
-        box-shadow: inset $top $left $blur $color;
-    } @else {
-        -webkit-box-shadow: $top $left $blur $color;
-        -moz-box-shadow: $top $left $blur $color;
-        box-shadow: $top $left $blur $color;
-    }
-}
-
-// generic transform
-@mixin transform($transforms) {
-    -moz-transform: $transforms;
-    -o-transform: $transforms;
-    -ms-transform: $transforms;
-    -webkit-transform: $transforms;
-    transform: $transforms;
-}
-
 /* Fix Android */
 body {
     -webkit-animation: bugfix infinite 1s;
@@ -39,94 +12,102 @@ body {
     }
 }
 
-/*
-<div class="checkbox-btn">
-    <input id="checkbox1" type="checkbox">
-    <label for="checkbox1">
-        Default
-    </label>
-</div>
-*/
+
+//<div class="checkbox-btn">
+//    <input id="checkbox1" type="checkbox">
+//    <label for="checkbox1">
+//        Some label
+//    </label>
+//</div>
 
 $ch-color: #424242;
-$ch-selected-color: #000000;
+$ch-selected-color: #000;
 $ch-disabled-color: #787878;
 
 .checkbox-btn,
 .radio-btn {
     position: relative;
     padding-left: 20px;
+
     input[type="checkbox"],
     input[type="radio"] {
         position: absolute;
-        opacity: 0; /* IE<9 graceful degradation */
         z-index: 1;
+        opacity: 0; /* IE<9 graceful degradation */
     }
+
     label {
-        display: inline-block;
-        line-height: 24px; /* ::after height+borders */
-        vertical-align: middle;
         position: relative;
+        display: inline-block;
         padding-left: 20px;
+        line-height: 24px; /* ::after height+borders */
+        color: $ch-color;
+        vertical-align: middle;
         cursor: pointer;
         user-select: none; /* iOS =< 6 bug fix*/
-        color: $ch-color;
+
         &::after {
             position: absolute;
-            content: "";
+            top: 0;
+            left: 0;
             width: 18px;
             height: 18px;
-            left: 0;
-            top: 0;
             margin-left: -18px;
-            background-color: white;
-            border: 3px solid $ch-color;
-            @include border-radius(3px);
             cursor: pointer;
+            background-color: #fff;
+            border: 3px solid $ch-color;
+            border-radius: 3px;
+            content: "";
         }
+
         &::before {
             position: absolute;
-            content: "";
-            width: 10px;
-            height: 5px;
             top: 6px;
             left: 6px;
+            z-index: 1;
+            width: 10px;
+            height: 5px;
             margin-left: -18px;
+            background: transparent;
             border: 3px solid $ch-selected-color;
             border-top: none;
             border-right: none;
-            background: transparent;
-            @include transform(rotate(-45deg));
+            content: "";
             opacity: 0;
-            -webkit-transition: all 0.15s ease-in-out;
-            -o-transition: all 0.15s ease-in-out;
-            transition: all 0.15s ease-in-out;
-            z-index: 1;
+            transform: rotate(-45deg);
+            transition: all .15s ease-in-out;
         }
+
         &:active {
             &::before {
-                opacity: 0.3;
+                opacity: .3;
             }
         }
     }
+
     input[type="checkbox"]:checked + label,
     input[type="radio"]:checked + label {
         color: $ch-selected-color;
+
         &::after {
             border: 3px solid $ch-selected-color;
         }
+
         &::before {
             opacity: 1;
         }
     }
+
     input[type="checkbox"]:disabled + label,
     input[type="radio"]:disabled + label {
         color: $ch-disabled-color;
         cursor: default;
+
         &::after {
+            background-color: #fff;
             border: 3px solid $ch-disabled-color;
-            background-color: #ffffff;
         }
+
         &::before {
             display: none;
         }
@@ -136,17 +117,18 @@ $ch-disabled-color: #787878;
 .radio-btn {
     label {
         &::after {
-            @include border-radius(50%);
+            border-radius: 50%;
         }
+
         &::before {
-            width: 12px;
-            height: 12px;
-            border: none;
             top: 6px;
             left: 6px;
-            @include border-radius(50%);
-            background-color: #000000;
-            @include transform(rotate(0deg));
+            width: 12px;
+            height: 12px;
+            background-color: #000;
+            border: 0;
+            border-radius: 50%;
+            transform: rotate(0deg);
         }
     }
 }

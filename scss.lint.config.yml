@@ -1,0 +1,19 @@
+# Default application configuration that all configurations inherit from.
+linters:
+    IdSelector:
+        enabled: false
+    Indentation:
+        width: 4
+    PropertySortOrder:
+        order: recess
+    StringQuotes:
+        enabled: false
+    ColorVariable:
+        enabled: false
+    DuplicateProperty:
+        ignore_consecutive:
+            - background
+            - background-image
+            - transition
+    NestingDepth:
+        max_depth: 4
