@@ -4,6 +4,8 @@
 
 Easy to customize, styled checkbox and radio button.
 
+![Checkbox Demo](preview.png)
+
 **DEMO**
 
 > http://codepen.io/dzentbolas/pen/OyGeaj
